@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 :root{
 	--pink:#e84393;
 }
@@ -5,7 +6,7 @@
 	margin:0; 
 	padding:0;
 	box-sizing:border-box;
-	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	font-family: Poppins, sans-serif;
 	outline: none;
 	border: none;
 	text-decoration: none;
@@ -21,29 +22,34 @@ html{
 section{
  padding: 2rem 9%;
 }
+
 .heading{
  text-align: center;
- font-size: 4rem;
+ font-size: 5rem;
  padding: 1rem;
  margin: 2rem 0;
  background: rgba(255, 51, 153, .05);
 }
+
 .heading span{
  color:var(--pink);
 }
-.btn{
+
+.btn, .select-btn, .sign-in-btn, .sign-up-btn, .sign-out.btn{
  display: inline-block;
  margin-top: 1rem;
  border-radius: 5rem;
  background: #333;
  color: #fff;
- padding: .9rem 3.5rem;
+ padding: 0.9rem 3.5rem;
  cursor: pointer;
  font-size: 1.7rem;
 }
-.btn:hover{
+
+.btn:hover, .select-btn:hover{
  background:var(--pink);
 }
+
 header{
 	position: fixed;
 	top:0; 
@@ -55,19 +61,21 @@ header{
 	align-items: center;
 	justify-content: space-between;
 	z-index: 1000;
-	box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
+	box-shadow: 0 0.5rem 1rem rgba(0,0,0,.1);
 }
 header .logo{
 	font-size: 3rem;
 	color: #333;
 	font-weight: bolder;
 }
+
 header .logo span{
 	color: var(--pink);
 }
+
 header .navbar a{
 	font-size: 2rem;
-	padding:0 1.5rem;
+	padding:1rem 1.5rem;
 	color: #666;
 }
 header .navbar a:hover{
@@ -90,8 +98,8 @@ header #toggler{
 header .fa-bars{
  font-size: 3rem;
  color:#333;
- border-radius: .5rem;
- padding: .5rem 1.5rem;
+ border-radius: 0.5rem;
+ padding: 0.5rem 1.5rem;
  cursor: pointer;
  border: .1rem solid rgba(0, 0, 0, .3);
  display: none;
@@ -121,6 +129,14 @@ header .fa-bars{
  padding: 1rem 0;
  line-height: 1.5;
 }
+
+.home .content h3{
+	font-size: 5rem;
+  }
+  .home .content span{
+	font-size: 2.5rem;
+  }
+
 .about .row{
  display:flex;
  align-items: center;
@@ -129,10 +145,12 @@ header .fa-bars{
  padding: 2rem 0;
  padding-bottom: 3rem;
 }
+
 .about .row .video-container{
  flex: 1 1 40rem;
  position: relative;
 }
+
 .about .row .video-container video {
  width: 100%;
  border: 1.5rem solid #fff;
@@ -194,8 +212,6 @@ header .fa-bars{
 	color: var(--pink);
 }
 
-
-
 .cards-section{
 	display: flex;
 	justify-content: center;
@@ -205,10 +221,10 @@ header .fa-bars{
  
  .card-body{
 	height: 500px;
-	width: 20%;
+	width: 40%;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
+	justify-content: space-evenly;
 	align-items: center;
  }
  
@@ -245,25 +261,23 @@ header .fa-bars{
 	font-size: 1.8rem;
  }
  
- .card-info{
-  height: 100px;
-  text-align: center;
-  font-size: 1.4rem;
+ .card-img{
+  width: 150px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
   }
+
+ 
+
+
 
   .review .box-container{
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 	gap: 15px;
 }
-.review h1{
-	background: #FFF4FB;
-	font-weight: 600;
-	padding: 20px;
-	font-size: 40px;
-	text-align: center;
-	margin-bottom: 35px;
-}
+
 .review .box-container .box{
 	box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 	border-radius: 5px;
@@ -315,6 +329,24 @@ header .fa-bars{
 	bottom: 10%;
 }
 
+/* Style for gallery images */
+.gallery-container {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr); 
+	gap: 20px; 
+}
+
+
+.gallery-container img {
+	padding: 10px;
+	width: 100%; 
+	height: 300px;
+	object-fit: cover; 
+	border-radius: 5px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
   .contact {
 	padding-top: 4rem;
 	font-size: 3rem;
@@ -364,9 +396,42 @@ header .fa-bars{
 	color: #333;
  }
 
+ .popup-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: none;
+	justify-content: center;
+	align-items: center;
+ }
+ 
+ .popup-content {
+	font-size: 1.5rem ;
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+ }
+ 
+ .close-btn {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	cursor: pointer;
+ }
+ 
+.error-message {
+	display: none;
+}
+
  footer {
+	background-color: #ccc;
 	font-size: 2rem;
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 }
@@ -411,13 +476,19 @@ header{
 	border: .1rem solid rgba(0, 0, 0, .1);
 	display:block;
  }
+ .card-img{
+	width: 80px;
+	height: 80px;
+ }
+.review .box-container .box{
+	padding: 30px 5px;
 }
-.home .content h3{
- font-size: 5rem;
+.review .box-container .box .user .info p{
+	font-size: 2rem;
 }
-.home .content span{
- font-size: 2.5rem;
+
 }
+
 @media (max-width: 450px) {
  html{
 	font-size:50%;
@@ -425,37 +496,118 @@ header{
  .heading{
 	font-size: 3rem;
  }
+
+ 
+
 }
 
 
 
-.popup-overlay {
+
+
+/* Add this CSS code at the end of your existing CSS file */
+
+.cart-sidebar {
 	position: fixed;
 	top: 0;
-	left: 0;
-	width: 100%;
+	right: 0;
+	width: 300px;
 	height: 100%;
-	background-color: rgba(0, 0, 0, 0.5);
-	display: none;
-	justify-content: center;
-	align-items: center;
- }
- 
- .popup-content {
-	font-size: 1.5rem ;
 	background-color: #fff;
+	box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+	transform: translateX(100%);
+	transition: transform 0.3s ease-in-out;
+	z-index: 1000;
+}
+
+.cart-sidebar h2{
+	margin: 10px;
+	font-size: 2rem;
+}
+
+.cart-sidebar.show {
+	transform: translateX(0);
+}
+
+.cart-content {
 	padding: 20px;
-	border-radius: 10px;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
- }
- 
- .close-btn {
+	overflow-y: auto;
+}
+
+.cart-item {
+	margin-bottom: 10px;
+	border-bottom: 1px solid #ddd;
+	padding-bottom: 10px;
+}
+
+.cart-item p {
+	padding-top: 20px;
+	font-size: 1.5rem;
+	margin: 0;
+}
+
+.close-button {
 	position: absolute;
 	top: 10px;
-	right: 10px;
+	right: 20px;
 	cursor: pointer;
- }
- 
-.error-message {
-	display: none;
+	background-color: #333;
+	color: #fff;
+	padding: 10px 10px;
+	border-radius: 5px;
+}
+
+.checkout-button {
+	margin: 20px;
+	padding: 10px 20px;
+	background-color: #333;
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.checkout-button:hover, .close-button:hover, .remove-btn:hover {
+	background-color: var(--pink);
+}
+
+.cart-total {
+	margin-top: 20px;
+	padding: 10px;
+	background-color: #f5f5f5;
+	text-align: center;
+	font-size: 1.5rem;
+}
+
+.cart-total, strong, p{
+	color: #333;
+	font-size: 1.5rem;
+	margin: 10px;
+}
+
+.fa-shopping-cart{
+	position: relative;
+}
+
+.cart-icon{
+	position: absolute;
+    background-color: var(--pink);
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color: #fff;
+    top: 50%;
+    right: -10px;
+}
+
+.remove-btn{
+	padding: 5px;
+	background-color: #333;
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
 }
