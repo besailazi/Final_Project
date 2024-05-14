@@ -13,6 +13,7 @@
 	text-transform: capitalize;
 	transition: .2s linear;
 }
+
 html{
 	font-size: 0.7rem;
 	scroll-behavior: smooth;
@@ -35,7 +36,7 @@ section{
  color:var(--pink);
 }
 
-.btn, .select-btn, .sign-in-btn, .sign-up-btn, .sign-out.btn{
+.btn, .select-btn, .sign-in-button, .sign-up-button, .sign-out-button{
  display: inline-block;
  margin-top: 1rem;
  border-radius: 5rem;
@@ -46,7 +47,7 @@ section{
  font-size: 1.7rem;
 }
 
-.btn:hover, .select-btn:hover{
+.btn:hover, .select-btn:hover, .sign-in-button:hover, .sign-up-button:hover, .sign-out-button:hover{
  background:var(--pink);
 }
 
@@ -62,6 +63,14 @@ header{
 	justify-content: space-between;
 	z-index: 1000;
 	box-shadow: 0 0.5rem 1rem rgba(0,0,0,.1);
+}
+header{
+	width: 100%;
+	height: 3rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 1rem;
 }
 header .logo{
 	font-size: 3rem;
@@ -105,6 +114,7 @@ header .fa-bars{
  display: none;
 }
 
+/* Home section css */
 .home{
  display: flex;
  align-items:center;
@@ -137,6 +147,7 @@ header .fa-bars{
 	font-size: 2.5rem;
   }
 
+/* About section css */
 .about .row{
  display:flex;
  align-items: center;
@@ -175,7 +186,7 @@ header .fa-bars{
  line-height: 1.5;
 }
 
-
+/* Info card containers */
 .icons-container{
 	display: flex;
 	background: #eee;
@@ -212,6 +223,7 @@ header .fa-bars{
 	color: var(--pink);
 }
 
+/* Shipping card */
 .cards-section{
 	display: flex;
 	justify-content: center;
@@ -270,7 +282,7 @@ header .fa-bars{
 
  
 
-
+/* Customer review */
 
   .review .box-container{
 	display: grid;
@@ -396,117 +408,7 @@ header .fa-bars{
 	color: #333;
  }
 
- .popup-overlay {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.5);
-	display: none;
-	justify-content: center;
-	align-items: center;
- }
- 
- .popup-content {
-	font-size: 1.5rem ;
-	background-color: #fff;
-	padding: 20px;
-	border-radius: 10px;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
- }
- 
- .close-btn {
-	position: absolute;
-	top: 10px;
-	right: 10px;
-	cursor: pointer;
- }
- 
-.error-message {
-	display: none;
-}
-
- footer {
-	background-color: #ccc;
-	font-size: 2rem;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-}
- 
- 
-
-@media (max-width: 991px) {
- html{
-	font-size: 55%;
- }
-header{
- padding: 2rem;
-}
-}
- section{
-	padding: 2rem;
- }
- .home{
-   background-position: 70%;
- }
-
-@media(max-width: 768px){
- header .fa-bars{
-	display: block;
- }
- header .navbar{
-	position:absolute;
-	top:100%;
-	left:0;
-	right:0;
-	background:#eee;
-	border-top: .1rem solid rgba(0, 0, 0, .1);
-	clip-path:polygon(0 0, 100% 0, 100% 0, 0 0); 
- }
- header #toggler:checked ~ .navbar{
-	clip-path:polygon(0 0, 100% 0, 100% 100%, 0% 100%); 
- }
- header .navbar a{
-	margin:0.5rem;
-	padding: 0.5rem;
-	background:#fff;
-	border: .1rem solid rgba(0, 0, 0, .1);
-	display:block;
- }
- .card-img{
-	width: 80px;
-	height: 80px;
- }
-.review .box-container .box{
-	padding: 30px 5px;
-}
-.review .box-container .box .user .info p{
-	font-size: 2rem;
-}
-
-}
-
-@media (max-width: 450px) {
- html{
-	font-size:50%;
- }
- .heading{
-	font-size: 3rem;
- }
-
- 
-
-}
-
-
-
-
-
-/* Add this CSS code at the end of your existing CSS file */
-
+/* Cart sidebar */
 .cart-sidebar {
 	position: fixed;
 	top: 0;
@@ -611,3 +513,98 @@ header{
 	border-radius: 5px;
 	cursor: pointer;
 }
+ 
+.error-message {
+	display: none;
+}
+
+
+ footer {
+	background-color: #ccc;
+	font-size: 2rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+ 
+ 
+
+@media (max-width: 991px) {
+ html{
+	font-size: 55%;
+ }
+header{
+ padding: 2rem;
+}
+}
+ section{
+	padding: 2rem;
+ }
+ .home{
+   background-position: 70%;
+ }
+
+@media(max-width: 768px){
+ header .fa-bars{
+	display: block;
+ }
+ header .navbar{
+	position:absolute;
+	top:100%;
+	left:0;
+	right:0;
+	background:#eee;
+	border-top: .1rem solid rgba(0, 0, 0, .1);
+	clip-path:polygon(0 0, 100% 0, 100% 0, 0 0); 
+ }
+ header #toggler:checked ~ .navbar{
+	clip-path:polygon(0 0, 100% 0, 100% 100%, 0% 100%); 
+ }
+ header .navbar a{
+	margin:0.5rem;
+	padding: 0.5rem;
+	background:#fff;
+	border: .1rem solid rgba(0, 0, 0, .1);
+	display:block;
+ }
+ .card-img{
+	width: 80px;
+	height: 80px;
+ }
+.review .box-container .box{
+	padding: 30px 5px;
+}
+.review .box-container .box .user .info p{
+	font-size: 2rem;
+}
+
+}
+
+@media (max-width: 450px) {
+ html{
+	font-size:50%;
+ }
+ .heading{
+	font-size: 3rem;
+ }
+
+}
+
+
+
+.secret-section{
+	filter: blur(5px);
+	}
+	
+	.sign-out-button{
+	display: none;
+	}
+
+	.front-page{
+	display: flex;
+	flex-direction: column;
+	width: 30rem;
+	gap: 0.5rem;
+	margin: 10rem auto;
+	}
