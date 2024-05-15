@@ -1,25 +1,3 @@
-// Fetch flower images from Unsplash API
-function fetchFlowerImages() {
-	const accessKey = 'AK1DjGs2S4HX5NHqMrYKl9-7EKhcTDtcPSHoFETjXbs'; 
-	const apiUrl = `https://api.unsplash.com/photos/random?query=flower&count=6&client_id=${accessKey}`;
-
-	fetch(apiUrl)
-		  .then(response => response.json())
-		  .then(data => {
-				 const galleryContainer = document.querySelector('.gallery-container');
-				 data.forEach(photo => {
-						 const img = document.createElement('img');
-						 img.src = photo.urls.regular;
-						 img.alt = photo.alt_description;
-						 galleryContainer.appendChild(img);
-				 });
-		  })
-		  .catch(error => console.error('Error fetching flower images:', error));
-}
-
-// Call the function to fetch flower images when the page loads
-window.addEventListener('load', fetchFlowerImages); 
-
 
 // Sidebar for cart items
 document.addEventListener("DOMContentLoaded", function() {
@@ -92,14 +70,19 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	// Event listener for checkout button
 	checkoutButton.addEventListener('click', function() {
-		 // Implement your checkout functionality here
-		 alert('Checkout clicked!');
+		const originalText = checkoutButton.textContent;
+
+		checkoutButton.textContent = 'Processing Checkout...';
+		setTimeout(function() {
+			checkoutButton.textContent = originalText;
+	  }, 2000); 
+ });
 	});
-});
+
 
 document.addEventListener("DOMContentLoaded", function() {
 	const shopNowButton = document.querySelector('.home .btn');
-	const productsSection = document.getElementById('products');
+	const productsSection = document.querySelector('#products');
 
 	// Event listener for "Shop Now" button
 	shopNowButton.addEventListener('click', function(event) {
@@ -108,6 +91,77 @@ document.addEventListener("DOMContentLoaded", function() {
 	});
 });
 
+// JavaScript to toggle color options visibility and select color
+const colorInput = document.querySelector('#colorInput');
+const colorOptions = document.querySelector('#colorOptions').querySelectorAll('.color-option');
 
-  
+colorInput.addEventListener('focus', () => {
+  document.getElementById('colorOptions').style.display = 'block';
+});
 
+colorInput.addEventListener('blur', () => {
+  setTimeout(() => {
+    document.getElementById('colorOptions').style.display = 'none';
+  }, 200); 
+});
+
+colorOptions.forEach(option => {
+  option.addEventListener('click', () => {
+    colorInput.value = option.textContent;
+    
+    filterByColor(option.dataset.color);
+  });
+});
+
+
+function filterByColor(color) {
+  const selectedColors = [color]; 
+  const order = document.querySelector('#latestBtn').classList.contains('active') ? 'latest' : 'popular';
+  fetchImages(order, selectedColors);
+}
+
+// Event listeners for sorting buttons (Latest and Popular)
+document.querySelector('#latestBtn').addEventListener('click', () => {
+  document.querySelector('#latestBtn').classList.add('active');
+  document.querySelector('#popularBtn').classList.remove('active');
+  const selectedColors = Array.from(document.querySelectorAll('#colorFilter option:checked')).map(option => option.value);
+  fetchImages('latest', selectedColors);
+});
+
+document.getElementById('popularBtn').addEventListener('click', () => {
+  document.getElementById('latestBtn').classList.remove('active');
+  document.getElementById('popularBtn').classList.add('active');
+  const selectedColors = Array.from(document.querySelectorAll('#colorFilter option:checked')).map(option => option.value);
+  fetchImages('popular', selectedColors);
+});
+
+// Fetch flower images from Pixaby API
+const apiKey = '43903649-3af8d9c83249b581b93925d84';
+const perPage = 6;
+let currentPage = 1;
+
+function fetchImages(order, colors) {
+  const colorParams = colors.length > 0 ? `&colors=${colors.join(',')}` : '';
+  const url = `https://pixabay.com/api/?key=${apiKey}&q=flowers&order=${order}&per_page=${perPage}&page=${currentPage}${colorParams}`;
+
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      displayImages(data.hits);
+    })
+    .catch(error => console.error('Error fetching images:', error));
+}
+
+function displayImages(images) {
+  const imageContainer = document.querySelector('#galleryContainer');
+  imageContainer.innerHTML = '';
+
+  images.forEach(image => {
+    const imgElement = document.createElement('img');
+    imgElement.src = image.webformatURL;
+    imageContainer.appendChild(imgElement);
+  });
+}
+
+// Initial load
+fetchImages('popular', []);
