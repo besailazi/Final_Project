@@ -96,12 +96,12 @@ const colorInput = document.querySelector('#colorInput');
 const colorOptions = document.querySelector('#colorOptions').querySelectorAll('.color-option');
 
 colorInput.addEventListener('focus', () => {
-  document.getElementById('colorOptions').style.display = 'block';
+  document.querySelector('#colorOptions').style.display = 'block';
 });
 
 colorInput.addEventListener('blur', () => {
   setTimeout(() => {
-    document.getElementById('colorOptions').style.display = 'none';
+    document.querySelector('#colorOptions').style.display = 'none';
   }, 200); 
 });
 
@@ -128,14 +128,14 @@ document.querySelector('#latestBtn').addEventListener('click', () => {
   fetchImages('latest', selectedColors);
 });
 
-document.getElementById('popularBtn').addEventListener('click', () => {
-  document.getElementById('latestBtn').classList.remove('active');
-  document.getElementById('popularBtn').classList.add('active');
+document.querySelector('#popularBtn').addEventListener('click', () => {
+  document.querySelector('#latestBtn').classList.remove('active');
+  document.querySelector('#popularBtn').classList.add('active');
   const selectedColors = Array.from(document.querySelectorAll('#colorFilter option:checked')).map(option => option.value);
   fetchImages('popular', selectedColors);
 });
 
-// Fetch flower images from Pixaby API
+// Fetch flower images from Pixabay API
 const apiKey = '43903649-3af8d9c83249b581b93925d84';
 const perPage = 6;
 let currentPage = 1;
@@ -163,5 +163,57 @@ function displayImages(images) {
   });
 }
 
-// Initial load
 fetchImages('popular', []);
+
+
+let slideIndex = 0;
+  showSlide(slideIndex);
+
+  document.querySelector('.prev').addEventListener('click', () => {
+    changeSlide(-1);
+  });
+
+  document.querySelector('.next').addEventListener('click', () => {
+    changeSlide(1);
+  });
+
+  function changeSlide(n) {
+    showSlide(slideIndex += n);
+  }
+
+  function showSlide(n) {
+    const slides = document.querySelectorAll('.slide');
+    if (n >= slides.length) { slideIndex = 0; }
+    if (n < 0) { slideIndex = slides.length - 1; }
+    slides.forEach(slide => slide.style.display = 'none');
+    slides[slideIndex].style.display = 'block';
+  }
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+	const contactForm = document.querySelector('.contactForm');
+	const successMessage = document.querySelector('.success-message');
+
+	contactForm.addEventListener('submit', function (e) {
+		 e.preventDefault(); 
+
+		 const formData = new FormData(contactForm);
+
+		 // Convert form data to object
+		 const formDataObj = {};
+		 formData.forEach(function(value, key){
+			  formDataObj[key] = value;
+		 });
+
+		 // Convert object to string and save to local storage
+		 localStorage.setItem('formData', JSON.stringify(formDataObj));
+
+		 successMessage.style.display = 'block'; 
+		 contactForm.reset(); 
+
+		 setTimeout(function() {
+			successMessage.style.display = 'none';
+		}, 3000);
+	});
+});
