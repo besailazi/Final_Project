@@ -1,5 +1,4 @@
-
-// Sidebar for cart items
+// Sidebar cart elements
 document.addEventListener("DOMContentLoaded", function() {
 	const selectButtons = document.querySelectorAll('.select-btn');
 	const cartSidebar = document.querySelector('.cart-sidebar');
@@ -13,22 +12,50 @@ document.addEventListener("DOMContentLoaded", function() {
 	let totalAmount = 0;
 	let itemCount = 0;
 
-	function removeItemFromCart(item) {
-		const priceElement = item.querySelector('p:nth-child(2)');
-		const price = parseFloat(priceElement.textContent.replace('$', ''));
-		totalAmount -= price;
-		itemCount--;
-		cartTotal.textContent = totalAmount.toFixed(2);
-		cartItemCount.textContent = itemCount;
-		item.remove();
-  }
-    
-  cartIcon.addEventListener('click', function() {
-	cartSidebar.classList.toggle('show');
-});
+	// Load cart from local storage
+	function loadCart() {
+		 const savedCart = JSON.parse(localStorage.getItem('cartItems')) || [];
+		 totalAmount = parseFloat(localStorage.getItem('totalAmount')) || 0;
+		 itemCount = parseInt(localStorage.getItem('itemCount')) || 0;
 
-	// Function to add item to cart
-	function addItemToCart(title, price) {
+		 savedCart.forEach(item => {
+			  addItemToCart(item.title, item.price, false);
+		 });
+
+		 cartTotal.textContent = totalAmount.toFixed(2);
+		 cartItemCount.textContent = itemCount;
+	}
+
+	// Save cart to local storage
+	function saveCart() {
+		 const cartItems = [];
+		 cartContent.querySelectorAll('.cart-item').forEach(item => {
+			  const title = item.querySelector('p:nth-child(1)').textContent;
+			  const price = item.querySelector('p:nth-child(2)').textContent;
+			  cartItems.push({ title, price });
+		 });
+		 localStorage.setItem('cartItems', JSON.stringify(cartItems));
+		 localStorage.setItem('totalAmount', totalAmount.toFixed(2));
+		 localStorage.setItem('itemCount', itemCount.toString());
+	}
+
+	function removeItemFromCart(item) {
+		 const priceElement = item.querySelector('p:nth-child(2)');
+		 const price = parseFloat(priceElement.textContent.replace('$', ''));
+		 totalAmount -= price;
+		 itemCount--;
+		 cartTotal.textContent = totalAmount.toFixed(2);
+		 cartItemCount.textContent = itemCount;
+		 item.remove();
+		 saveCart();
+	}
+
+	cartIcon.addEventListener('click', function() {
+		 cartSidebar.classList.toggle('show');
+	});
+
+	// Add item to cart
+	function addItemToCart(title, price, increment = true) {
 		 const item = document.createElement('div');
 		 item.classList.add('cart-item');
 		 item.innerHTML = `
@@ -43,13 +70,18 @@ document.addEventListener("DOMContentLoaded", function() {
 		 removeButton.addEventListener('click', function() {
 			  removeItemFromCart(item);
 		 });
-		 
 
 		 // Update total amount and item count
-		 totalAmount += parseFloat(price.replace('$', ''));
-		 itemCount++;
+		 if (increment) {
+			  totalAmount += parseFloat(price.replace('$', ''));
+			  itemCount++;
+		 }
 		 cartTotal.textContent = totalAmount.toFixed(2);
 		 cartItemCount.textContent = itemCount;
+
+		 if (increment) {
+			  saveCart();
+		 }
 	}
 
 	// Event listener for select buttons
@@ -70,28 +102,36 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	// Event listener for checkout button
 	checkoutButton.addEventListener('click', function() {
-		const originalText = checkoutButton.textContent;
+		 const originalText = checkoutButton.textContent;
 
-		checkoutButton.textContent = 'Processing Checkout...';
-		setTimeout(function() {
-			checkoutButton.textContent = originalText;
-	  }, 2000); 
- });
+		 checkoutButton.textContent = 'Processing Checkout...';
+		 setTimeout(function() {
+			  checkoutButton.textContent = originalText;
+		 }, 2000); 
 	});
 
+	// Load cart from local storage on page load
+	loadCart();
+});
 
+
+
+
+
+// Event listener for "Shop Now" button
 document.addEventListener("DOMContentLoaded", function() {
 	const shopNowButton = document.querySelector('.home .btn');
 	const productsSection = document.querySelector('#products');
 
-	// Event listener for "Shop Now" button
 	shopNowButton.addEventListener('click', function(event) {
 		 event.preventDefault();
 		 productsSection.scrollIntoView({ behavior: 'smooth' });
 	});
 });
 
-// JavaScript to toggle color options visibility and select color
+
+
+// Filter by color
 const colorInput = document.querySelector('#colorInput');
 const colorOptions = document.querySelector('#colorOptions').querySelectorAll('.color-option');
 
@@ -120,6 +160,8 @@ function filterByColor(color) {
   fetchImages(order, selectedColors);
 }
 
+
+
 // Event listeners for sorting buttons (Latest and Popular)
 document.querySelector('#latestBtn').addEventListener('click', () => {
   document.querySelector('#latestBtn').classList.add('active');
@@ -134,6 +176,8 @@ document.querySelector('#popularBtn').addEventListener('click', () => {
   const selectedColors = Array.from(document.querySelectorAll('#colorFilter option:checked')).map(option => option.value);
   fetchImages('popular', selectedColors);
 });
+
+
 
 // Fetch flower images from Pixabay API
 const apiKey = '43903649-3af8d9c83249b581b93925d84';
@@ -166,6 +210,8 @@ function displayImages(images) {
 fetchImages('popular', []);
 
 
+
+// Slideshow for the contact section
 let slideIndex = 0;
   showSlide(slideIndex);
 
@@ -190,7 +236,7 @@ let slideIndex = 0;
   }
 
 
-
+// Contact form success message
 document.addEventListener('DOMContentLoaded', function () {
 	const contactForm = document.querySelector('.contactForm');
 	const successMessage = document.querySelector('.success-message');
@@ -200,7 +246,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		 const formData = new FormData(contactForm);
 
-		 // Convert form data to object
 		 const formDataObj = {};
 		 formData.forEach(function(value, key){
 			  formDataObj[key] = value;
