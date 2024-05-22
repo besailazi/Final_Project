@@ -22,3 +22,8 @@ Floralia is an online flower shop website that provides users with a seamless sh
 -  https://www.w3schools.com/
 -  https://developer.mozilla.org/en-US/
 -  https://codepen.io/trending
+
+## Link to Github
+- https://github.com/besailazi/Final_project.git
+
+## Link to Netlify

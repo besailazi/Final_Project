@@ -176,21 +176,20 @@ header .fa-bars {
   display: flex;
   align-items: center;
   gap: 2rem;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   padding: 2rem 0;
   padding-bottom: 3rem;
 }
 
 .about .row .video-container {
-  flex: 1 1 40rem;
   position: relative;
 }
 
 .about .row .video-container video {
   width: 100%;
-  border: 1.5rem solid #fff;
-  border-radius: 0.5rem;
-  box-shadow: 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  border: 10px solid #fff;
+  border-radius: 10px;
+  box-shadow: 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
   height: 100%;
   object-fit: cover;
 }
@@ -370,14 +369,14 @@ header .fa-bars {
 
 .color-options {
   position: absolute;
-  top: 100%;
+  top: 70%;
   left: 0;
   z-index: 1;
   display: none;
   background-color: #fff;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
-  padding: 5px;
+  padding: 0 30px;
 }
 
 .color-option {
@@ -386,7 +385,7 @@ header .fa-bars {
 }
 
 .color-option:hover {
-  background-color: #f0f0f0;
+  background-color: #eee;
 }
 
 #latestBtn,
@@ -436,7 +435,7 @@ header .fa-bars {
 
 input,
 textarea {
-  background-color: #e9e9e9;
+  background-color: #eee;
   border: 1px solid #ccc;
   border-radius: 4px;
   margin: 0;
@@ -571,7 +570,7 @@ input[type="submit"]:hover {
 .cart-total {
   margin-top: 20px;
   padding: 10px;
-  background-color: #f5f5f5;
+  background-color: #eee;
   text-align: center;
   font-size: 1.5rem;
 }
@@ -616,6 +615,31 @@ p {
   margin-top: 5px;
   color: var(--pink);
 }
+
+.scrollToTopButton{
+  display: none; 
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+   
+}
+
+.scrollToTopButton:hover{
+	background: var(--pink);
+}
+
+#scrollToTopButton::before {
+  font-size: 24px;
+  line-height: 50px;
+  text-align: center;
+ }
 
 
 footer {
@@ -666,6 +690,11 @@ section {
     border: 0.1rem solid rgba(0, 0, 0, 0.1);
     display: block;
   }
+
+  .about .row{
+	flex-wrap: wrap;
+  }
+
   .card-img, img{
     width: 100px;
 	 height: 100px;
