@@ -186,7 +186,7 @@ let currentPage = 1;
 
 function fetchImages(order, colors) {
   const colorParams = colors.length > 0 ? `&colors=${colors.join(',')}` : '';
-  const url = `https://pixabay.com/api/?key=${apiKey}&q=flowers&order=${order}&per_page=${perPage}&page=${currentPage}${colorParams}`;
+  const url = `https://pixabay.com/api/?key=${API_KEY}&q=flowers&order=${order}&per_page=${perPage}&page=${currentPage}${colorParams}`;
 
   fetch(url)
     .then(response => response.json())

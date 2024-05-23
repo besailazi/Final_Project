@@ -244,6 +244,16 @@ header .fa-bars {
 }
 
 /* CSS for products section */
+
+#products p{
+	font-size: 2.5rem;
+	color: var(--pink);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 20px;
+	
+}
 .cards-section {
   display: flex;
   justify-content: center;
@@ -299,6 +309,14 @@ header .fa-bars {
 }
 
 /* CSS for customer review */
+.review p {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: var(--pink);
+	font-size: 2.5rem;
+	padding: 20px;
+}
 .review .box-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -356,6 +374,16 @@ header .fa-bars {
 }
 
 /* CSS for gallery section */
+
+#gallery p{
+	padding: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: var(--pink);
+	font-size: 2.5rem;
+}
+
 .gallery-filter-container {
   display: flex;
   justify-content: space-evenly;
