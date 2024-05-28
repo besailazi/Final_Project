@@ -130,36 +130,47 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-// Filter by color
-const colorInput = document.querySelector('#colorInput');
-const colorOptions = document.querySelector('#colorOptions').querySelectorAll('.color-option');
-
-colorInput.addEventListener('focus', () => {
-  document.querySelector('#colorOptions').style.display = 'block';
-});
-
-colorInput.addEventListener('blur', () => {
-  setTimeout(() => {
-    document.querySelector('#colorOptions').style.display = 'none';
-  }, 200); 
-});
-
-colorOptions.forEach(option => {
-  option.addEventListener('click', () => {
-    colorInput.value = option.textContent;
-    
-    filterByColor(option.dataset.color);
-  });
-});
-
-
-function filterByColor(color) {
-  const selectedColors = [color]; 
-  const order = document.querySelector('#latestBtn').classList.contains('active') ? 'latest' : 'popular';
-  fetchImages(order, selectedColors);
-}
-
-
+// Filter color options
+function generateColorOptions() {
+	const colors = ['red', 'orange', 'yellow', 'green', 'turquoise', 'blue', 'lilac', 'pink', 'white'];
+	const colorOptionsContainer = document.querySelector('#colorOptions');
+	
+	colors.forEach(color => {
+	  const colorOption = document.createElement('div');
+	  colorOption.classList.add('color-option');
+	  colorOption.dataset.color = color;
+	  colorOption.textContent = color.charAt(0).toUpperCase() + color.slice(1); // Capitalize the color name
+	  colorOptionsContainer.appendChild(colorOption);
+	  
+	  colorOption.addEventListener('click', () => {
+		 colorInput.value = colorOption.textContent;
+		 filterByColor(color);
+	  });
+	});
+ }
+ 
+ 
+ generateColorOptions();
+ 
+ 
+ colorInput.addEventListener('focus', () => {
+	document.querySelector('#colorOptions').style.display = 'block';
+ });
+ 
+ 
+ colorInput.addEventListener('blur', () => {
+	setTimeout(() => {
+	  document.querySelector('#colorOptions').style.display = 'none';
+	}, 200);
+ });
+ 
+ 
+ function filterByColor(color) {
+	const selectedColors = [color];
+	const order = document.querySelector('#latestBtn').classList.contains('active') ? 'latest' : 'popular';
+	fetchImages(order, selectedColors);
+ }
+ 
 
 // Event listeners for sorting buttons (Latest and Popular)
 document.querySelector('#latestBtn').addEventListener('click', () => {
