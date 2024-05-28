@@ -110,7 +110,6 @@ document.addEventListener("DOMContentLoaded", function() {
 		 }, 2000); 
 	});
 
-	// Load cart from local storage on page load
 	loadCart();
 });
 
@@ -166,17 +165,25 @@ function filterByColor(color) {
 document.querySelector('#latestBtn').addEventListener('click', () => {
   document.querySelector('#latestBtn').classList.add('active');
   document.querySelector('#popularBtn').classList.remove('active');
-  const selectedColors = Array.from(document.querySelectorAll('#colorFilter option:checked')).map(option => option.value);
-  fetchImages('latest', selectedColors);
+  const selectedColor = document.querySelector('#colorInput').dataset.color || ''; 
+  fetchImages('latest', selectedColor ? [selectedColor] : []); 
 });
+
 
 document.querySelector('#popularBtn').addEventListener('click', () => {
   document.querySelector('#latestBtn').classList.remove('active');
   document.querySelector('#popularBtn').classList.add('active');
-  const selectedColors = Array.from(document.querySelectorAll('#colorFilter option:checked')).map(option => option.value);
-  fetchImages('popular', selectedColors);
+  const selectedColor = document.querySelector('#colorInput').dataset.color || ''; 
+  fetchImages('popular', selectedColor ? [selectedColor] : []); 
 });
 
+
+document.querySelector('#searchInput').addEventListener('input', () => {
+	const searchQuery = document.querySelector('#searchInput').value.trim();
+	if (searchQuery !== '') {
+	  fetchImages('popular', [], searchQuery); 
+	}
+ });
 
 
 // Fetch flower images from Pixabay API
@@ -184,16 +191,17 @@ const apiKey = '43903649-3af8d9c83249b581b93925d84';
 const perPage = 6;
 let currentPage = 1;
 
-function fetchImages(order, colors) {
+function fetchImages(order, colors, searchQuery) {
   const colorParams = colors.length > 0 ? `&colors=${colors.join(',')}` : '';
-  const url = `https://pixabay.com/api/?key=${API_KEY}&q=flowers&order=${order}&per_page=${perPage}&page=${currentPage}${colorParams}`;
+  const searchParams = searchQuery ? `&q=${encodeURIComponent(searchQuery)}` : '';
+  const url = `https://pixabay.com/api/?key=${apiKey}&q=flowers&order=${order}&per_page=${perPage}&page=${currentPage}${colorParams}${searchParams}`;
 
   fetch(url)
     .then(response => response.json())
     .then(data => {
       displayImages(data.hits);
     })
-    .catch(error => console.error('Error fetching images:', error));
+    .catch(error);
 }
 
 function displayImages(images) {
@@ -208,6 +216,8 @@ function displayImages(images) {
 }
 
 fetchImages('popular', []);
+
+
 
 
 

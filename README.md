@@ -27,3 +27,4 @@ Floralia is an online flower shop website that provides users with a seamless sh
 - https://github.com/besailazi/Final_project.git
 
 ## Link to Netlify
+- https://unique-croissant-25db18.netlify.app
