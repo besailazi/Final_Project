@@ -264,13 +264,11 @@ document.addEventListener('DOMContentLoaded', function () {
 	contactForm.addEventListener('submit', function (e) {
 		 e.preventDefault(); 
 
-		 const formData = new FormData(contactForm);
-
 		 const formDataObj = {};
-		 formData.forEach(function(value, key){
+		 const formData = new FormData(contactForm);
+		 for (const [key, value] of formData.entries()) {
 			  formDataObj[key] = value;
-		 });
-
+		 }
 		 // Convert object to string and save to local storage
 		 localStorage.setItem('formData', JSON.stringify(formDataObj));
 
