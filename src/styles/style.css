@@ -544,9 +544,11 @@ input[type="submit"]:hover {
 	max-width: 800px;
 	margin: auto;
  }
+
  .slide {
 	display: none;
  }
+ 
  .prev, .next {
 	position: absolute;
 	top: 50%;

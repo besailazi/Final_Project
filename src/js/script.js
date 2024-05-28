@@ -197,12 +197,21 @@ function fetchImages(order, colors, searchQuery) {
   const url = `https://pixabay.com/api/?key=${apiKey}&q=flowers&order=${order}&per_page=${perPage}&page=${currentPage}${colorParams}${searchParams}`;
 
   fetch(url)
-    .then(response => response.json())
-    .then(data => {
-      displayImages(data.hits);
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
     })
-    .catch(error);
-}
+    .then(data => {
+        displayImages(data.hits);
+    })
+    .catch(error => {
+        const errorMessage = document.createElement('p');
+        errorMessage.textContent = 'An error occurred while fetching images. Please try again later.';
+        document.body.appendChild(errorMessage);
+    });
+	}
 
 function displayImages(images) {
   const imageContainer = document.querySelector('#galleryContainer');
@@ -222,28 +231,29 @@ fetchImages('popular', []);
 
 
 // Slideshow for the contact section
-let slideIndex = 0;
-  showSlide(slideIndex);
 
-  document.querySelector('.prev').addEventListener('click', () => {
-    changeSlide(-1);
-  });
-
-  document.querySelector('.next').addEventListener('click', () => {
-    changeSlide(1);
-  });
-
-  function changeSlide(n) {
-    showSlide(slideIndex += n);
-  }
-
-  function showSlide(n) {
-    const slides = document.querySelectorAll('.slide');
-    if (n >= slides.length) { slideIndex = 0; }
-    if (n < 0) { slideIndex = slides.length - 1; }
-    slides.forEach(slide => slide.style.display = 'none');
-    slides[slideIndex].style.display = 'block';
-  }
+	let slideIndex = 0;
+	showSlide(slideIndex);
+ 
+	document.querySelector('.prev').addEventListener('click', () => {
+	  changeSlide(-1);
+	});
+ 
+	document.querySelector('.next').addEventListener('click', () => {
+	  changeSlide(1);
+	});
+ 
+	function changeSlide(n) {
+	  showSlide(slideIndex += n);
+	}
+ 
+	function showSlide(n) {
+	  const slides = document.querySelectorAll('.slide');
+	  if (n >= slides.length) { slideIndex = 0; }
+	  if (n < 0) { slideIndex = slides.length - 1; }
+	  slides.forEach(slide => slide.style.display = 'none');
+	  slides[slideIndex].style.display = 'block';
+	}
 
 
 // Contact form success message
